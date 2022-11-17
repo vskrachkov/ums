@@ -19,4 +19,6 @@ urlpatterns = [
     ),
     path("info/", info),
     path("health/", include("health_check.urls")),
+    path("auth/", include("dj_rest_auth.urls")),
+    path("auth/registration/", include("dj_rest_auth.registration.urls")),
 ]

@@ -110,14 +110,14 @@ STATIC_URL = "/static/"
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
-    "DEFAULT_AUTHENTICATION_CLASSES": [],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-]
+AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.ModelBackend"]
 
 LOGIN_REDIRECT_URL = env.str("LOGIN_REDIRECT_URL", "/admin")
 
@@ -188,7 +188,7 @@ DRF_INFO_ENDPOINT_PROJECT_NAME = "ums"
 DRF_INFO_ENDPOINT_VERSION = __version__
 
 DJANGO_JSON_LOGGING_SETTINGS = {
-    "MAX_BODY_SIZE": 500,
+    "MAX_BODY_SIZE": 50,
 }
 
 if env.bool("USE_SENTRY", False) and env.str("SENTRY_DSN", ""):
@@ -201,6 +201,8 @@ if env.bool("USE_SENTRY", False) and env.str("SENTRY_DSN", ""):
     )
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+SITE_ID = 1
 
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = "access-token"
