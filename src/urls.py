@@ -18,5 +18,5 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("info/", info),
-    path("health/", include('health_check.urls')),
+    path("health/", include("health_check.urls")),
 ]
