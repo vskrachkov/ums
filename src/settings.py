@@ -2,6 +2,7 @@ from typing import Any, Dict, List
 
 import dj_database_url
 from environs import Env
+
 from version import __version__
 
 env = Env()
@@ -20,10 +21,18 @@ BASE_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 ]
 
 EXTERNAL_APPS = [
     "drf_spectacular",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     "corsheaders",
     "health_check",
     "health_check.db",
@@ -102,9 +111,7 @@ REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PARSER_CLASSES": ["rest_framework.parsers.JSONParser"],
     "DEFAULT_AUTHENTICATION_CLASSES": [],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated"
-    ],
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -163,15 +170,12 @@ DBBACKUP_STORAGE_OPTIONS = {
 }
 DBBACKUP_CLEANUP_KEEP = 7
 DBBACKUP_FILENAME_TEMPLATE = (
-    env.str("DBBACKUP_PROJECT_NAME", "ums")
-    + "-{datetime}.{extension}"
+    env.str("DBBACKUP_PROJECT_NAME", "ums") + "-{datetime}.{extension}"
 )
 
 SPECTACULAR_SETTINGS: Dict[str, Any] = {
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
-    "SERVE_AUTHENTICATION": [
-        "rest_framework.authentication.SessionAuthentication"
-    ],
+    "SERVE_AUTHENTICATION": ["rest_framework.authentication.SessionAuthentication"],
     "POSTPROCESSING_HOOKS": [
         "drf_spectacular_extensions.postprocessing_hooks.add_servers",
     ],
@@ -197,3 +201,7 @@ if env.bool("USE_SENTRY", False) and env.str("SENTRY_DSN", ""):
     )
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = "access-token"
+JWT_AUTH_REFRESH_COOKIE = "refresh-token"
