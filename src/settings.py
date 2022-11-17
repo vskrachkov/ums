@@ -39,9 +39,11 @@ EXTERNAL_APPS = [
     "health_check.contrib.migrations",
 ]
 
-PROJECT_APPS: List[str] = []
+PROJECT_APPS: List[str] = ["users"]
 
 INSTALLED_APPS = BASE_APPS + EXTERNAL_APPS + PROJECT_APPS
+
+AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -207,3 +209,7 @@ SITE_ID = 1
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = "access-token"
 JWT_AUTH_REFRESH_COOKIE = "refresh-token"
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
