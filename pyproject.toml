@@ -1,0 +1,50 @@
+[tool.black]
+line-length = 80
+multi_line_output = 3
+include_trailing_comma = "True"
+force_grid_wrap = 0
+use_parentheses = "True"
+ensure_newline_before_comments = "True"
+line_length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.poetry]
+name = "ums"
+version = "0.1.0"
+description = "ums"
+authors = [""]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+djangorestframework = "*"
+environs = "*"
+dj-database-url = "*"
+psycopg2-binary = "*"
+Django = "*"
+django-storages = "*"
+boto3 = "*"
+django-dbbackup = "*"
+sentry_sdk = "*"
+drf-spectacular = "*"
+django-json-logging = "*"
+django-cors-headers = "*"
+uvicorn = "*"
+drf_spectacular_extensions = "*"
+drf_info_endpoint = "*"
+django-health-check = "^3.17.0"
+
+[tool.poetry.dev-dependencies]
+mypy = "==0.982"
+django-stubs = "*"
+djangorestframework-stubs = "*"
+isort = "5.10.1"
+black = "==22.10.0"
+pre-commit = "*"
+bump2version = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
